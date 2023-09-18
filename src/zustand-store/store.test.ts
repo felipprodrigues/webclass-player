@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { useStore as store } from ".";
-import { next } from "../store/slices/player";
 
 const course = {
   id: 1,

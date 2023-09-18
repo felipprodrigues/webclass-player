@@ -1,15 +1,15 @@
 import { useAppSelector } from "../store";
+import { useCurrentLesson } from "../store/slices/player";
 
 export function Header() {
-  const { currentModule, currentLesson } = useAppSelector((state) => {
-    const { currentModuleIndex, currentLessonIndex } = state.player;
+  const { currentModule, currentLesson } = useCurrentLesson();
+  const isCourseLoading = useAppSelector((state) => state.player.isLoading);
 
-    const currentModule = state.player.course.modules[currentModuleIndex];
+  if (!currentLesson || !currentModule) return null;
 
-    const currentLesson = currentModule.lessons[currentLessonIndex];
-
-    return { currentLesson, currentModule };
-  });
+  if (isCourseLoading) {
+    return <h1 className="text-2xl font-bold">Loading...</h1>;
+  }
 
   return (
     <div className="flex flex-col gap-1">
